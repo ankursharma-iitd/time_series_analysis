@@ -33,16 +33,15 @@ centernames = ["Uttar Pradesh"]
 
 def extractdata():
 
-	# path_to_chromedriver = '~/Users/ankursharma/Desktop/Sem 6/Minor Project/crawler' 
-	path_to_chromedriver = '/Users/ankursharma/Downloads'
+	path_to_chromedriver = '/usr/local/Cellar/chromedriver/2.35' 
 	browser = webdriver.Chrome()
 	url = 'http://agmarknet.nic.in/agnew/NationalBEnglish/DatewiseCommodityReport.aspx'
 	browser.get(url)
 	print "url has been opened \n"
 	myfile= open('mynewdata.csv','a')
 	for center in centernames:
-		start_year = 2006
-		end_year = 2007
+		start_year = 2008
+		end_year = 2009
 		for year in range(start_year,end_year+1):
 			months = months1
 			# if(year == 2017):

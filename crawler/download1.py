@@ -64,7 +64,7 @@ centernames = ["Maharashtra"]
 
 def extractdata():
 
-	path_to_chromedriver = 'C:\selenium' 
+	path_to_chromedriver = '/usr/local/Cellar/chromedriver/2.35' 
 	browser = webdriver.Chrome()
 	url = 'http://nhb.gov.in/OnlineClient/MonthlyPriceAndArrivalReport.aspx'
 	print "1"
