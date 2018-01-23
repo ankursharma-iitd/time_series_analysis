@@ -1,2 +1,2 @@
-# time_series_analysis
-Anomaly Detection and Time Series Analysis of Commodity Prices
+# Anomaly Detection & Time Series Analysis
+Anomaly Detection and Time Series Analysis of Commodity Prices - potato prices
