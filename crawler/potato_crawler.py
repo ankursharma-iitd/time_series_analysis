@@ -38,10 +38,10 @@ def extractdata():
 	url = 'http://agmarknet.nic.in/agnew/NationalBEnglish/DatewiseCommodityReport.aspx'
 	browser.get(url)
 	print "url has been opened \n"
-	myfile= open('mynewdata.csv','a')
+	myfile= open('data/mynewdata.csv','a')
 	for center in centernames:
-		start_year = 2008
-		end_year = 2009
+		start_year = 2006
+		end_year = 2008
 		for year in range(start_year,end_year+1):
 			months = months1
 			# if(year == 2017):
@@ -57,7 +57,7 @@ def extractdata():
 				browser.implicitly_wait(30)
 				browser.find_element_by_xpath("//*[@id=\"cboState\"]/option[contains(text(),\""+center+"\")]").click()
 				browser.implicitly_wait(30)
-				browser.find_element_by_xpath("//*[@id=\"cboCommodity\"]/option[contains(text(),\""+"Onion"+"\")]").click()
+				browser.find_element_by_xpath("//*[@id=\"cboCommodity\"]/option[contains(text(),\""+"Potato"+"\")]").click()
 				browser.implicitly_wait(30)
 				browser.find_element_by_xpath("//*[@id=\"btnSubmit\"]").click()
 				table = browser.find_element_by_xpath("//*[@id=\"gridRecords\"]")
@@ -69,7 +69,7 @@ def extractdata():
 					for cell in cells:
 						st += cell.text+','
 					st+='\n'
-					myfile= open('mynewdata_'+str(year)+'_'+str(month)+'.csv','a')
+					myfile= open('data/mynewdata_'+str(year)+'_'+str(month)+'.csv','a')
 					myfile.write(st)
 					myfile.close()
 				browser.find_element_by_xpath("//*[@id=\"LinkButton1\"]").click()
