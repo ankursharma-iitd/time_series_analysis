@@ -40,8 +40,8 @@ def extractdata():
 	print "url has been opened \n"
 	myfile= open('data/mynewdata.csv','a')
 	for center in centernames:
-		start_year = 2006
-		end_year = 2008
+		start_year = 2011
+		end_year = 2011
 		for year in range(start_year,end_year+1):
 			months = months1
 			# if(year == 2017):
