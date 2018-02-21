@@ -8,6 +8,7 @@ import pandas as pd
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 
 from datetime import timedelta, date
 
@@ -71,33 +72,37 @@ def extractdata():
     myfile= open('mynewdata.csv','a')
     for center in centernames:
         for retail_name in centers:
-            start_year = 2006
-            end_year = 2006
+            start_year = 2011
+            end_year = 2017
             for year in range(start_year,end_year+1):
                 months = months1
                 for month in months:
                     print year,month
-                    browser.get(url)
-                    browser.implicitly_wait(30)
-                    browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlyear\"]/option[contains(text(),\""+str(year)+"\")]").click()
-                    browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlmonth\"]/option[contains(text(),\""+month+"\")]").click()
-                    browser.implicitly_wait(30)
-                    browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_drpCategoryName\"]/option[contains(text(),\""+"VEGETABLES"+"\")]").click()
-                    browser.implicitly_wait(30)
-                    browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_drpCropName\"]/option[contains(text(),\""+"POTATO"+"\")]").click()
-                    browser.implicitly_wait(30)
-                    browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlvariety\"]/option[contains(text(),\""+"POTATO FRESH"+"\")]").click()
-                    browser.implicitly_wait(30)
-                    browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_LsboxCenterList\"]/option[contains(text(),\""+retail_name+"\")]").click()
-                    browser.implicitly_wait(30)
-                    browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_btnSearch\"]").click()
-                    table = browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_GridViewmonthlypriceandarrivalreport\"]")
+                    try:
+                        browser.get(url)
+                        browser.implicitly_wait(30)
+                        browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlyear\"]/option[contains(text(),\""+str(year)+"\")]").click()
+                        browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlmonth\"]/option[contains(text(),\""+month+"\")]").click()
+                        browser.implicitly_wait(30)
+                        browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_drpCategoryName\"]/option[contains(text(),\""+"VEGETABLES"+"\")]").click()
+                        browser.implicitly_wait(30)
+                        browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_drpCropName\"]/option[contains(text(),\""+"POTATO"+"\")]").click()
+                        browser.implicitly_wait(30)
+                        browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlvariety\"]/option[contains(text(),\""+"POTATO FRESH"+"\")]").click()
+                        browser.implicitly_wait(30)
+                        browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_LsboxCenterList\"]/option[contains(text(),\""+retail_name+"\")]").click()
+                        browser.implicitly_wait(30)
+                        browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_btnSearch\"]").click()
+                        table = browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_GridViewmonthlypriceandarrivalreport\"]")
+                    except NoSuchElementException:
+                        print('No Such Element Found \n')
+                        continue
                     rows = table.find_elements_by_tag_name("tr")
                     monthnum = month_name_to_number(month)
                     start_dt = date(year,monthnum,1)
                     end_dt = date(year, monthnum, monthtodays(month,year))
                     dates = givedates(start_dt,end_dt)
-                    myfilename = 'retaildata/mynewretaildata'+retail_name+'.csv'
+                    myfilename = 'retaildata/mynewretaildata_'+retail_name+'.csv'
                     myfile= open(myfilename,'a')
                     cells = rows[1].find_elements_by_xpath(".//*[local-name(.)='td']")
                     temp = [cell.text for cell in cells]
