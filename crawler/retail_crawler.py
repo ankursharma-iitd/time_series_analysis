@@ -32,7 +32,7 @@ def monthtodays(month,year):
         return 31
 
 months1 = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-centers = ["LUCKNOW", "AGRA", "BARAUT", "VARANASI", "KANPUR"]
+centers = ["LUCKNOW"]
 
 
 def month_name_to_number(number):
@@ -72,7 +72,7 @@ def extractdata():
     myfile= open('mynewdata.csv','a')
     for center in centernames:
         for retail_name in centers:
-            start_year = 2011
+            start_year = 2014
             end_year = 2017
             for year in range(start_year,end_year+1):
                 months = months1
@@ -102,7 +102,7 @@ def extractdata():
                     start_dt = date(year,monthnum,1)
                     end_dt = date(year, monthnum, monthtodays(month,year))
                     dates = givedates(start_dt,end_dt)
-                    myfilename = 'retaildata/mynewretaildata_'+retail_name+'.csv'
+                    myfilename = 'retailData/retaildata_'+retail_name+'.csv'
                     myfile= open(myfilename,'a')
                     cells = rows[1].find_elements_by_xpath(".//*[local-name(.)='td']")
                     temp = [cell.text for cell in cells]
