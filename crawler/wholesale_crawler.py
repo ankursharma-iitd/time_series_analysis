@@ -40,8 +40,8 @@ def extractdata():
 	print "url has been opened \n"
 	myfile= open('data/wholesaleData/mynewdata.csv','a')
 	for center in centernames:
-		start_year = 2014
-		end_year = 2014
+		start_year = 2015
+		end_year = 2015
 		for year in range(start_year,end_year+1):
 			months = months1
 			# if(year == 2017):
@@ -51,14 +51,14 @@ def extractdata():
 			
 			for month in months:
 				print year,month + "\n"
-				browser.implicitly_wait(30)
+				browser.implicitly_wait(6)
 				browser.find_element_by_xpath("//*[@id=\"cboYear\"]/option[contains(text(),\""+str(year)+"\")]").click()
 				browser.find_element_by_xpath("//*[@id=\"cboMonth\"]/option[contains(text(),\""+month+"\")]").click()
-				browser.implicitly_wait(30)
+				#browser.implicitly_wait(30)
 				browser.find_element_by_xpath("//*[@id=\"cboState\"]/option[contains(text(),\""+center+"\")]").click()
-				browser.implicitly_wait(30)
+				#browser.implicitly_wait(30)
 				browser.find_element_by_xpath("//*[@id=\"cboCommodity\"]/option[contains(text(),\""+"Potato"+"\")]").click()
-				browser.implicitly_wait(30)
+				#browser.implicitly_wait(30)
 				browser.find_element_by_xpath("//*[@id=\"btnSubmit\"]").click()
 				table = browser.find_element_by_xpath("//*[@id=\"gridRecords\"]")
 				rows = table.find_elements_by_tag_name("tr")

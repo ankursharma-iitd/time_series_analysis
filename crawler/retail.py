@@ -139,7 +139,7 @@ def getcenter(centrename):
     price = series[RP]   
     price = price.replace(0.0, np.NaN, regex=True)
     #price = price.interpolate(method='pchip',limit_direction='both')
-    price = price.interpolate(method='pchip')
+    price = price.interpolate(method='linear')
     price = RemoveNaNFront(price)
     return price
 
@@ -160,7 +160,7 @@ def give_df_mandinames_center(mandinames):
 def give_average_of_df(mandiDF):
     meanseries = mandiDF.mean(axis=1)
     meanseries = meanseries.replace(0.0, np.NaN, regex=True)
-    meanseries = meanseries.interpolate(method='pchip',)
+    meanseries = meanseries.interpolate(method='linear')
     mandiarrivalseries = RemoveNaNFront(meanseries)
     return mandiarrivalseries
 
