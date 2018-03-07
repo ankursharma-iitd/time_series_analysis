@@ -5,6 +5,7 @@ import scipy
 from constants import CONSTANTS
 import matplotlib.pyplot as plt
 import math
+import csv
 
 mandi_info = pd.read_csv('data/original/mandis.csv')
 dict_centreid_mandicode = mandi_info.groupby('centreid')['mandicode'].apply(list).to_dict()
@@ -129,7 +130,8 @@ def findcenters(csvfile):
     return temp
 
 mandinames = findcenters('data/original/mandis.csv')
-
+mandinames.remove('Mihipurwa')
+mandinames.remove('Risia')
 
 def getcenter(centrename):
     code = dict_centrename_centreid[centrename][0]
@@ -167,7 +169,7 @@ def give_average_of_df(mandiDF):
 centreDF = give_df_mandinames_center(mandinames)
 retailpriceseries = give_average_of_df(centreDF)
 
-centreDF1 = give_df_mandinames_center(['dummy_LUCKNOW_dummy.png'])
+centreDF1 = give_df_mandinames_center(['Lucknow'])
 specificretailprice = give_average_of_df(centreDF1)
 
 # centreDFwhite = rwhiten(give_df_imagenames_center(['dummy_MUMBAI_dummy.png','dummy_MUMBAI_dummy.png']))

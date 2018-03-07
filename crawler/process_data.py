@@ -40,12 +40,12 @@ files = [f for f in listdir('data/wholesaleData')]
 
 code=-1
 
-newfile = open('data/original/wholesalepotatodata.csv','a')
+newfile = open('data/original/wholesaledata.csv','a')
 lines = []
 for j in range(0,len(files)):
     file = files[j]
     with open('data/wholesaleData/'+file) as f:
-        print(f)
+        #print(f)
         content = f.readlines()
     for i in range(1,len(content)):
         temp = content[i].strip().split(',')

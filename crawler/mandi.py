@@ -84,6 +84,8 @@ def findcenters(csvfile):
     return temp
 
 mandinames = findcenters('data/original/mandis.csv')
+mandinames.remove('Mihipurwa')
+mandinames.remove('Risia')
 
 
 # WP = 7
@@ -94,13 +96,14 @@ def getmandi(mandiname,price):
     if price:
         switch = 7
     else:
-        switch = 2 
+        switch = 2
     mcode = dict_mandiname_mandicode[mandiname][0]
     series = CreateMandiSeries(mcode,wholeSalePA)
-    arrival = series[switch]   
+    arrival = series[switch]
     arrival = arrival.replace(0.0, np.NaN, regex=True)
+    #arrival = arrival.replace(0, np.NaN, regex=True)
     #arrival = arrival.interpolate(method='pchip',limit_direction='both')
-    arrival = arrival.interpolate(method='pchip')
+    arrival = arrival.interpolate(method='linear')
     arrival = RemoveNaNFront(arrival)
     return arrival
 
@@ -108,8 +111,10 @@ def getmandi(mandiname,price):
 def give_df_mandinames(isprice,mandinames):
     mandiseries = []
     for mandiname in mandinames:
+        # print('in: ' + mandiname)
         arrival = getmandi(mandiname,isprice)
         mandiseries.append(arrival)
+        # print('out: ' + mandiname)
 
     mandiDF = pd.DataFrame()
     for i in range(0, len(mandiseries)):
@@ -121,7 +126,8 @@ def give_df_mandinames(isprice,mandinames):
 def give_average_of_df(mandiDF):
     meanseries = mandiDF.mean(axis=1)
     meanseries = meanseries.replace(0.0, np.NaN, regex=True)
-    meanseries = meanseries.interpolate(method='pchip')
+    meanseries = meanseries.replace(0, np.NaN, regex=True)
+    meanseries = meanseries.interpolate(method='linear')
     mandiarrivalseries = RemoveNaNFront(meanseries)
     return mandiarrivalseries
 
@@ -131,12 +137,12 @@ mandiarrivalseries = give_average_of_df(mandiDF)
 mandiDF = give_df_mandinames(True,mandinames)
 mandipriceseries = give_average_of_df(mandiDF)
 
-# mandiDF = give_df_imagenames(False,['Delhi_DELHI_Azadpur.png'])
-# specificarrivalseries = give_average_of_df(mandiDF)
+mandiDF = give_df_mandinames(False,['Lucknow'])
+specificarrivalseries = give_average_of_df(mandiDF)
 
 
-# mandiDF = give_df_imagenames(True,['Delhi_DELHI_Azadpur.png'])
-# specificpriceseries = give_average_of_df(mandiDF)
+mandiDF = give_df_mandinames(True,['Lucknow'])
+specificpriceseries = give_average_of_df(mandiDF)
 
 
 def give_avg_series(mandiarrivalseries):
