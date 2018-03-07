@@ -9,7 +9,7 @@ import math
 import matplotlib.dates as mdates
 
 
-font = {'family' : 'normal',
+font = {'family' : 'DejaVu Sans',
         #'weight' : 'bold',
         'size'   : 15}
 
@@ -154,6 +154,7 @@ def plotcpi(start,end,averagetoo,roll=False):
         mstd = give_std_series(start,end,cpimonthlyseries)
         plt.fill_between(mstd.index, ma-mstd, ma+mstd, color=colors[4], alpha=0.2)
     plt.legend(loc='best')
+    plt.savefig('plots/cpi.png', bbox_inches = 'tight', dpi = 1000)
     plt.show()
 
 def plotarrival(start,end,averagetoo,roll=False):
@@ -172,6 +173,7 @@ def plotarrival(start,end,averagetoo,roll=False):
         mstd = give_std_series(start,end,mandiarrivalseries)
         plt.fill_between(mstd.index, ma-mstd, ma+mstd, color=colors[2], alpha=0.2)
     plt.legend(loc='best')
+    plt.savefig('plots/arrival.png', bbox_inches = 'tight', dpi = 1000)
     plt.show()
 
 def plotmandiprice(start,end,averagetoo,roll=False):
@@ -190,6 +192,7 @@ def plotmandiprice(start,end,averagetoo,roll=False):
         mstd = give_std_series(start,end,mandipriceseries)
         plt.fill_between(mstd.index, ma-mstd, ma+mstd, color=colors[4], alpha=0.2)
     plt.legend(loc='best')
+    plt.savefig('plots/mandi.png', bbox_inches = 'tight', dpi = 1000)
     plt.show()
 
 def plotretailprice(start,end,averagetoo,roll=False):
@@ -208,6 +211,7 @@ def plotretailprice(start,end,averagetoo,roll=False):
         mstd = give_std_series(start,end,retailpriceseries)
         plt.fill_between(mstd.index, ma-mstd, ma+mstd, color=colors[4], alpha=0.2)
     plt.legend(loc='best')
+    plt.savefig('plots/retail.png', bbox_inches = 'tight', dpi = 1000)
     plt.show()
 
 def plotretailvsmandi(start,end,averagetoo,roll=False):
@@ -223,6 +227,7 @@ def plotretailvsmandi(start,end,averagetoo,roll=False):
     if(averagetoo):
         plot_series(b,'Mandi Price',3)
     plt.legend(loc='best')
+    plt.savefig('plots/retailvsmandi.png', bbox_inches = 'tight', dpi = 1000)
     plt.show()
 
 def plotsingleseries(series,title,xlabel,ylabel,start,end,averagetoo,roll=False,sigma=1):
@@ -374,7 +379,7 @@ plotsingleseries(retailpriceseries - mandipriceseries,'Difference','Time','Price
 #     plotsingleseries(retailpriceseries-mandipriceseries,'Difference','Time','Price per Quintal',pstart[i],pend[i],False,False )
 
 # plotsingleseries(exportseries,'Export','Time','Export in Metric Tons',pstart,pend,False,True)
-# plotcpi(fstart,fend,False,False)
+plotcpi(startplot,endplot,False,True)
 # plotdoubleseries(mandipriceseries,cpimonthlyseries,'Time','Time','Mandi Price','CPI',fstart,fend)
 # linear_reg(cpimonthlyseries,mandipriceseries)
 # from loadmonthlyseries import mpimonthlyseries

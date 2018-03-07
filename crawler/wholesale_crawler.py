@@ -37,11 +37,11 @@ def extractdata():
 	browser = webdriver.Chrome()
 	url = 'http://agmarknet.nic.in/agnew/NationalBEnglish/DatewiseCommodityReport.aspx'
 	browser.get(url)
-	print "url has been opened \n"
+	print "url has been opened"
 	myfile= open('data/wholesaleData/mynewdata.csv','a')
 	for center in centernames:
-		start_year = 2015
-		end_year = 2015
+		start_year = 2016
+		end_year = 2016
 		for year in range(start_year,end_year+1):
 			months = months1
 			# if(year == 2017):
@@ -50,7 +50,7 @@ def extractdata():
 			# 	months = months3
 			
 			for month in months:
-				print year,month + "\n"
+				print year,month
 				browser.implicitly_wait(6)
 				browser.find_element_by_xpath("//*[@id=\"cboYear\"]/option[contains(text(),\""+str(year)+"\")]").click()
 				browser.find_element_by_xpath("//*[@id=\"cboMonth\"]/option[contains(text(),\""+month+"\")]").click()

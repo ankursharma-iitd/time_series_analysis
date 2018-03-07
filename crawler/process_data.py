@@ -40,7 +40,7 @@ files = [f for f in listdir('data/wholesaleData')]
 
 code=-1
 
-newfile = open('data/original/wholesaledata.csv','a')
+newfile = open('data/original/wholesalepotatodata.csv','w')
 lines = []
 for j in range(0,len(files)):
     file = files[j]
