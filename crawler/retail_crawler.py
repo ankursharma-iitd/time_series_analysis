@@ -68,11 +68,12 @@ def extractdata():
     path_to_chromedriver = '/usr/local/Cellar/chromedriver/2.35'
     browser = webdriver.Chrome()
     url = 'http://nhb.gov.in/OnlineClient/MonthlyPriceAndArrivalReport.aspx'
-    print "1"
-    myfile= open('mynewdata.csv','a')
+    #print "1"
+    myfile = open('data/retaildata.csv', 'a')
+    # myfile= open('mynewdata.csv','a')
     for center in centernames:
         for retail_name in centers:
-            start_year = 2014
+            start_year = 2011
             end_year = 2017
             for year in range(start_year,end_year+1):
                 months = months1
@@ -80,40 +81,40 @@ def extractdata():
                     print year,month
                     try:
                         browser.get(url)
-                        browser.implicitly_wait(30)
+                        browser.implicitly_wait(5)
                         browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlyear\"]/option[contains(text(),\""+str(year)+"\")]").click()
                         browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlmonth\"]/option[contains(text(),\""+month+"\")]").click()
-                        browser.implicitly_wait(30)
+                        # browser.implicitly_wait(30)
                         browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_drpCategoryName\"]/option[contains(text(),\""+"VEGETABLES"+"\")]").click()
-                        browser.implicitly_wait(30)
+                        # browser.implicitly_wait(30)
                         browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_drpCropName\"]/option[contains(text(),\""+"POTATO"+"\")]").click()
-                        browser.implicitly_wait(30)
+                        # browser.implicitly_wait(30)
                         browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_ddlvariety\"]/option[contains(text(),\""+"POTATO FRESH"+"\")]").click()
-                        browser.implicitly_wait(30)
+                        # browser.implicitly_wait(30)
                         browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_LsboxCenterList\"]/option[contains(text(),\""+retail_name+"\")]").click()
-                        browser.implicitly_wait(30)
+                        # browser.implicitly_wait(30)
                         browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_btnSearch\"]").click()
                         table = browser.find_element_by_xpath("//*[@id=\"ctl00_ContentPlaceHolder1_GridViewmonthlypriceandarrivalreport\"]")
                     except NoSuchElementException:
-                        print('No Such Element Found \n')
+                        print('No Such Element Found')
                         continue
                     rows = table.find_elements_by_tag_name("tr")
                     monthnum = month_name_to_number(month)
                     start_dt = date(year,monthnum,1)
                     end_dt = date(year, monthnum, monthtodays(month,year))
                     dates = givedates(start_dt,end_dt)
-                    myfilename = 'retailData/retaildata_'+retail_name+'.csv'
-                    myfile= open(myfilename,'a')
+                    #myfilename = 'retailData/retaildata_'+retail_name+'.csv'
+                    #myfile= open(myfilename,'a')
                     cells = rows[1].find_elements_by_xpath(".//*[local-name(.)='td']")
                     temp = [cell.text for cell in cells]
                     for i in range(0,len(dates)):
                         temp1 = temp[i+4].split()
                         if temp1 != []:
-                            mystr=dates[i]+','+temp1[3]+'\n'
+                            mystr=dates[i]+',40,'+str(round(int(temp1[3]) / 100, 2))+'\n'
                         else:
-                            mystr=dates[i]+',0'+'\n'
+                            mystr=dates[i]+',40,0'+'\n'
                         myfile.write(mystr)
-                    myfile.close()
+    myfile.close()
 
 
 if __name__ == '__main__':
