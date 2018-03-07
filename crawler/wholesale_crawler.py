@@ -38,10 +38,10 @@ def extractdata():
 	url = 'http://agmarknet.nic.in/agnew/NationalBEnglish/DatewiseCommodityReport.aspx'
 	browser.get(url)
 	print "url has been opened \n"
-	myfile= open('wholesaleData/mynewdata.csv','a')
+	myfile= open('data/wholesaleData/mynewdata.csv','a')
 	for center in centernames:
-		start_year = 2013
-		end_year = 2013
+		start_year = 2014
+		end_year = 2014
 		for year in range(start_year,end_year+1):
 			months = months1
 			# if(year == 2017):
@@ -69,7 +69,7 @@ def extractdata():
 					for cell in cells:
 						st += cell.text+','
 					st+='\n'
-					myfile= open('wholesaleData/mynewdata_'+str(year)+'_'+str(month)+'.csv','a')
+					myfile= open('data/wholesaleData/mynewdata_'+str(year)+'_'+str(month)+'.csv','a')
 					myfile.write(st)
 					myfile.close()
 				browser.find_element_by_xpath("//*[@id=\"LinkButton1\"]").click()
