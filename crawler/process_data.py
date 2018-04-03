@@ -36,11 +36,11 @@ dict_statename_statecode = state_info.groupby('state')['statecode'].apply(list).
 #src = 'data/wholesaleData/'
 #dest = 'data/original/'
 
-files = [f for f in listdir('data/wholesaleData')]
+files = [f for f in listdir('data/wholesaleData/')]
 
 code=-1
 
-newfile = open('data/original/wholesalepotatodata.csv','w')
+newfile = open('data/original/wholesalepotatodata2.csv','w')
 lines = []
 for j in range(0,len(files)):
     file = files[j]

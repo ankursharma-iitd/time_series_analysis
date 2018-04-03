@@ -248,6 +248,7 @@ def plotsingleseries(series,title,xlabel,ylabel,start,end,averagetoo,roll=False,
         mstd = give_std_series(start,end,series)
         plt.fill_between(mstd.index, ma-sigma*mstd, ma+sigma*mstd, color=colors[4], alpha=0.2)
     plt.legend(loc='best')
+    # plt.savefig('plots/difference.png', bbox_inches = 'tight', dpi = 1000)
     plt.show()
 
 def plottwosingleseries(series1,series2,title,xlabel,ylabel,start,end,averagetoo,roll=False,sigma=1):

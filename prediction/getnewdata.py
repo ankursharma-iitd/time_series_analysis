@@ -37,7 +37,7 @@ files = [f for f in listdir(src+'/Wholesale')]
 
 code=-1
 
-newfile = open(src+'/wholesale2.csv','a')
+newfile = open(src+'/wholesale21.csv','a')
 
 for j in range(0,len(files)):
 	file = files[j]

@@ -9,9 +9,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-months1 = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+# months1 = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 # months2 = ["January","February","March","April","May","June","July","August","September","October","November"]
 # months3 = ["December"]
+months4 = ["May","June","July","August","September","October","November","December"]
 
 '''
 start_year = 2014
@@ -40,10 +41,10 @@ def extractdata():
 	print "url has been opened"
 	myfile= open('data/wholesaleData/mynewdata.csv','a')
 	for center in centernames:
-		start_year = 2016
-		end_year = 2016
+		start_year = 2014
+		end_year = 2014
 		for year in range(start_year,end_year+1):
-			months = months1
+			months = months4
 			# if(year == 2017):
 			# 	months = months2
 			# elif(year == 2016):

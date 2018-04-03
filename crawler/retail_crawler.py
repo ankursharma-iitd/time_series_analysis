@@ -31,8 +31,21 @@ def monthtodays(month,year):
     else:
         return 31
 
+def get_retail_centers():
+    temp = {}
+    inputfile = 'data/original/centres.csv'
+    with open(inputfile) as csvfile:
+        reader = csv.reader(csvfile)
+        for line in reader:
+            if line[1] == '17':
+                temp[line[2]] = line[0]
+    return temp
+
+
+
 months1 = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-centers = ["LUCKNOW"]
+centers = get_retail_centers()
+centers_available = ['LUCKNOW', 'BARAUT', 'VARANASI']
 
 
 def month_name_to_number(number):
@@ -70,11 +83,12 @@ def extractdata():
     url = 'http://nhb.gov.in/OnlineClient/MonthlyPriceAndArrivalReport.aspx'
     #print "1"
     myfile = open('data/retaildata.csv', 'a')
+    filedata = []
     # myfile= open('mynewdata.csv','a')
     for center in centernames:
-        for retail_name in centers:
-            start_year = 2011
-            end_year = 2017
+        for retail_name in centers_available:
+            start_year = 2007
+            end_year = 2010
             for year in range(start_year,end_year+1):
                 months = months1
                 for month in months:
@@ -110,10 +124,13 @@ def extractdata():
                     for i in range(0,len(dates)):
                         temp1 = temp[i+4].split()
                         if temp1 != []:
-                            mystr=dates[i]+',40,'+str(round(int(temp1[3]) / 100, 2))+'\n'
+                            mystr=dates[i]+',' + centers[retail_name] + ',' +str(round(int(temp1[3]) / 100, 2))+'\n'
                         else:
-                            mystr=dates[i]+',40,0'+'\n'
-                        myfile.write(mystr)
+                            mystr=dates[i]+ ',' + centers[retail_name] + ',0'+'\n'
+                        filedata.append(mystr)
+    filedata.sort()
+    for line in filedata:
+        myfile.write(line)
     myfile.close()
 
 
