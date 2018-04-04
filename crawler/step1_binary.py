@@ -150,7 +150,7 @@ def get_score(xtrain,xtest,ytrain,ytest):
 	scaler = preprocessing.StandardScaler().fit(xtrain)
 	xtrain = scaler.transform(xtrain)
 	xtest = scaler.transform(xtest)
-	model = RandomForestClassifier(max_depth=2, random_state=0)
+	model = RandomForestClassifier(max_depth=3, random_state=0)
 	model.fit(xtrain,ytrain)
 	test_pred = np.array(model.predict(xtest))
 	return test_pred

@@ -7,6 +7,7 @@ from constants import CONSTANTS
 import matplotlib.pyplot as plt
 import matplotlib
 from sklearn import preprocessing
+import itertools
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
