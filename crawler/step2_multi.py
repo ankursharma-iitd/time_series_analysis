@@ -6,13 +6,16 @@ import numpy as np
 from constants import CONSTANTS
 import matplotlib.pyplot as plt
 import matplotlib
+import itertools
 from sklearn import preprocessing
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 
+
 import os
 cwd = os.getcwd()
+pngindex = 1
 
 # lucknowlabels = [2,1,1,2,2,2,5,4,3,1,5,5,5,3,2,2,5,5,4,3,4,5,4,2,5,5,5,5,2,2,3,2,2,5,3,2,5,2]
 
@@ -168,6 +171,33 @@ def get_score(xtrain,xtest,ytrain,ytest):
 	# 	return 0
 	return test_pred
 
+def plot_confusion_matrix(pngindex, cm, classes, normalize = False,title='Confusion Matrix',cmap=plt.cm.Blues):
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[: np.newaxis]
+        # print('Normalized Confusion Matrix')
+        # print('Confusion Matrix, without normalization')
+
+    plt.imshow(cm, interpolation='nearest', cmap = cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes)
+    plt.yticks(tick_marks, classes)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2
+    for i,j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment='center',
+                 color='white' if cm[i, j] > thresh else 'black')
+
+    plt.tight_layout()
+    plt.ylabel('True Label')
+    plt.xlabel('Predicted label')
+    plt.savefig('confusion' + str(pngindex) + '.png', bbox_inches='tight', dpi = 1000)
+    pngindex += 1
+
+
 def train_test_function(align_l, data_l):
 	# align = [1,2,3]
 	# anomaliesmumbai = get_anomalies('data/anomaly/normal_h_w_mumbai.csv',align_m)
@@ -253,8 +283,11 @@ def train_test_function(align_l, data_l):
 	actual_labels= np.array(actual_labels)
 	# print len(actual_labels)
 	print (sum(predicted == actual_labels) * 100.0)/len(predicted)
-	from sklearn.metrics import confusion_matrix
-	print confusion_matrix(actual_labels,predicted)
+	cnf = confusion_matrix(actual_labels,predicted)
+	print(cnf)
+	np.set_printoptions(precision=2)
+	plt.figure()
+	plot_confusion_matrix(pngindex, cnf, classes = ['1', '2', '3', '4', '5', '8'], title = 'Confusion Matrix')
 
 	# train_data = []
 	# train_labels = []
@@ -270,6 +303,7 @@ def train_test_function(align_l, data_l):
 	# print actual_labels
 	# print predicted
 	# print f1_score(actual_labels,predicted,labels=[2,3,5],average="macro")
+
 
 
 train_test_function(mandipriceserieslucknow,[retailpriceserieslucknow])

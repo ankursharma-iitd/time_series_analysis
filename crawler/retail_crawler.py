@@ -87,8 +87,8 @@ def extractdata():
     # myfile= open('mynewdata.csv','a')
     for center in centernames:
         for retail_name in centers_available:
-            start_year = 2007
-            end_year = 2010
+            start_year = 2011
+            end_year = 2017
             for year in range(start_year,end_year+1):
                 months = months1
                 for month in months:

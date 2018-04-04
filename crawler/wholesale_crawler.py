@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 # months1 = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 # months2 = ["January","February","March","April","May","June","July","August","September","October","November"]
 # months3 = ["December"]
-months4 = ["May","June","July","August","September","October","November","December"]
+months4 = ["September","October","November","December"]
 
 '''
 start_year = 2014
