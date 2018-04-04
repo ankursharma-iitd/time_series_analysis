@@ -169,7 +169,7 @@ def train_test_function(align_l, data_l):
 	yearall = np.array(lucknow_anomalies_year)
 
 	for y in range(0,len(yall)):
-		if( yall[y] == 2 or yall[y]==3 or yall[y]==5):
+		if( yall[y] == 2 or yall[y]==3 or yall[y]==5 or yall[y] == 1 or yall[y] == 4):
 			xall_new.append(xall[y])
 			yall_new.append(1)
 			yearall_new.append(yearall[y])
