@@ -6,16 +6,13 @@ import numpy as np
 from constants import CONSTANTS
 import matplotlib.pyplot as plt
 import matplotlib
-import itertools
 from sklearn import preprocessing
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 
-
 import os
 cwd = os.getcwd()
-pngindex = 1
 
 # lucknowlabels = [2,1,1,2,2,2,5,4,3,1,5,5,5,3,2,2,5,5,4,3,4,5,4,2,5,5,5,5,2,2,3,2,2,5,3,2,5,2]
 
@@ -194,11 +191,9 @@ def plot_confusion_matrix(pngindex, cm, classes, normalize = False,title='Confus
     plt.tight_layout()
     plt.ylabel('True Label')
     plt.xlabel('Predicted label')
-    plt.savefig('confusion' + str(pngindex) + '.png', bbox_inches='tight', dpi = 1000)
-    pngindex += 1
+    plt.savefig('confusion3_' + str(pngindex) + '.png', bbox_inches='tight', dpi = 1000)
 
-
-def train_test_function(align_l, data_l):
+def train_test_function(pngindex, align_l, data_l):
 	# align = [1,2,3]
 	# anomaliesmumbai = get_anomalies('data/anomaly/normal_h_w_mumbai.csv',align_m)
 	# anomaliesdelhi = get_anomalies('data/anomaly/normal_h_w_delhi.csv',align_d)
@@ -249,7 +244,7 @@ def train_test_function(align_l, data_l):
 	# 		yall_new.append(0)
 	# 		yearall_new.append(yearall[y])
 	for y in range(0,len(yall)):
-		if( yall[y] == 1 or yall[y]== 2 or yall[y]== 3 or yall[y]== 4 or yall[y]== 5):
+		if( yall[y] == 2 or yall[y]== 4 or yall[y]== 5):
 			xall_new.append(xall[y])
 			yall_new.append(yall[y])
 			yearall_new.append(yearall[y])
@@ -283,11 +278,12 @@ def train_test_function(align_l, data_l):
 	actual_labels= np.array(actual_labels)
 	# print len(actual_labels)
 	print (sum(predicted == actual_labels) * 100.0)/len(predicted)
+	from sklearn.metrics import confusion_matrix
 	cnf = confusion_matrix(actual_labels,predicted)
 	print(cnf)
 	np.set_printoptions(precision=2)
 	plt.figure()
-	plot_confusion_matrix(pngindex, cnf, classes = ['1', '2', '3', '4', '5', '8'], title = 'Confusion Matrix')
+	plot_confusion_matrix(pngindex, cnf, classes = ['2', '4', '5'], title = 'Confusion Matrix')
 
 	# train_data = []
 	# train_labels = []
@@ -305,15 +301,14 @@ def train_test_function(align_l, data_l):
 	# print f1_score(actual_labels,predicted,labels=[2,3,5],average="macro")
 
 
-
-train_test_function(mandipriceserieslucknow,[retailpriceserieslucknow])
-train_test_function(mandipriceserieslucknow,[mandipriceserieslucknow])
-train_test_function(mandipriceserieslucknow,[retailpriceserieslucknow,mandipriceserieslucknow])
-train_test_function(mandipriceserieslucknow,[retailpriceserieslucknow-mandipriceserieslucknow,mandiarrivalserieslucknow])
-train_test_function(mandipriceserieslucknow,[retailpriceserieslucknow-mandipriceserieslucknow])
-train_test_function(mandipriceserieslucknow,[retailpriceserieslucknow,mandiarrivalserieslucknow])
-train_test_function(mandipriceserieslucknow,[retailpriceserieslucknow,mandipriceserieslucknow,mandiarrivalserieslucknow])
-train_test_function(mandipriceserieslucknow,[retailpriceserieslucknow/mandipriceserieslucknow])
+train_test_function(1, mandipriceserieslucknow,[retailpriceserieslucknow])
+train_test_function(2, mandipriceserieslucknow,[mandipriceserieslucknow])
+train_test_function(3, mandipriceserieslucknow,[retailpriceserieslucknow,mandipriceserieslucknow])
+train_test_function(4, mandipriceserieslucknow,[retailpriceserieslucknow-mandipriceserieslucknow,mandiarrivalserieslucknow])
+train_test_function(5, mandipriceserieslucknow,[retailpriceserieslucknow-mandipriceserieslucknow])
+train_test_function(6, mandipriceserieslucknow,[retailpriceserieslucknow,mandiarrivalserieslucknow])
+train_test_function(7, mandipriceserieslucknow,[retailpriceserieslucknow,mandipriceserieslucknow,mandiarrivalserieslucknow])
+train_test_function(8, mandipriceserieslucknow,[retailpriceserieslucknow/mandipriceserieslucknow])
 
 
 # train_test_function(mandipriceseriesmumbai,mandipriceseriesdelhi,mandipriceserieslucknow,[retailpriceseriesmumbai],[retailpriceseriesdelhi],[retailpriceserieslucknow])
